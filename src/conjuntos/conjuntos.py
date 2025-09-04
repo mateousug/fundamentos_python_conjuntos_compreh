@@ -229,5 +229,91 @@ frutas_importadas = {"piña", "mango", "kiwi"}
 frutas_locales.update(frutas_importadas)
 print(frutas_locales)  # {'manzana', 'pera', 'naranja', 'piña', 'mango', 'kiwi'}
 
+# difference_update() - Actualiza el conjunto original eliminando los elementos que están en otro conjunto.
+todos_cursos = {"Python", "Java", "SQL", "JavaScript", "C++"}
+cursos_completados = {"Python", "SQL"}
+# Elimina los cursos completados de la lista total
+todos_cursos.difference_update(cursos_completados)
+print(todos_cursos)  # {'Java', 'JavaScript', 'C++'}
 
+# symmetric_difference_update() - Actualiza el conjunto original para que contenga solo los elementos que están en uno u otro conjunto, pero no en ambos.
+grupo1 = {"Ana", "Carlos", "David"}
+grupo2 = {"Carlos", "Elena", "Fernando"}
+# Actualiza grupo1 para contener solo personas que están en un grupo pero no en ambos
+grupo1.symmetric_difference_update(grupo2)
+print(grupo1)  # {'Ana', 'David', 'Elena', 'Fernando'}
+
+# Metoos para verificar relaciones entre conjuntos
+# isdisjoint() - Verifica si dos conjuntos no tienen elementos en común.
+vegetales = {"zanahoria", "pepino", "lechuga"}
+frutas = {"manzana", "plátano", "naranja"}
+print(vegetales.isdisjoint(frutas))  # True - No tienen elementos en común
+
+numeros_pares = {2, 4, 6, 8}
+numeros_primos = {2, 3, 5, 7}
+print(numeros_pares.isdisjoint(numeros_primos))  # False - Comparten el 2
+
+# Metodos para crear copias de conjuntos
+# copy() - Devuelve una copia superficial del conjunto.
+original = {1, 2, (3, 4)}
+copia = original.copy()
+original.add(5)
+print(original)  # {1, 2, (3, 4), 5}
+print(copia)     # {1, 2, (3, 4)} - No se ve afectado por cambios en el original
+
+# Ejemplo practico
+# Productos vendidos en diferentes tiendas
+tienda_centro = {"laptop", "teléfono", "tablet", "auriculares", "cámara"}
+tienda_norte = {"laptop", "teléfono", "smartwatch", "altavoces"}
+tienda_sur = {"tablet", "auriculares", "smartwatch", "monitor"}
+
+# Productos que se venden en todas las tiendas
+productos_comunes = tienda_centro.intersection(tienda_norte, tienda_sur)
+print(f"Productos vendidos en todas las tiendas: {productos_comunes}")
+
+# Productos únicos de la tienda centro (que no se venden en las otras)
+productos_exclusivos_centro = tienda_centro.difference(tienda_norte.union(tienda_sur))
+print(f"Productos exclusivos de tienda centro: {productos_exclusivos_centro}")
+
+# Productos que se venden en al menos una tienda
+catalogo_completo = tienda_centro.union(tienda_norte, tienda_sur)
+print(f"Catálogo completo: {catalogo_completo}")
+
+# Comprobar si todas las tiendas venden productos distintos
+son_disjuntos = tienda_centro.isdisjoint(tienda_norte) and tienda_centro.isdisjoint(tienda_sur) and tienda_norte.isdisjoint(tienda_sur)
+print(f"¿Todas las tiendas venden productos distintos? {son_disjuntos}")
+
+# Productos que se venden en exactamente una tienda
+solo_centro = tienda_centro - (tienda_norte | tienda_sur)
+solo_norte = tienda_norte - (tienda_centro | tienda_sur)
+solo_sur = tienda_sur - (tienda_centro | tienda_norte)
+productos_exclusivos = solo_centro | solo_norte | solo_sur
+print(f"Productos que se venden en una sola tienda: {productos_exclusivos}")
+
+# Encadenamiento de metodos
+grupo_a = {1, 2, 3, 4, 5}
+grupo_b = {4, 5, 6, 7}
+grupo_c = {1, 5, 7, 9}
+
+# Elementos que están en grupo_a y grupo_b, pero no en grupo_c
+resultado = grupo_a.intersection(grupo_b).difference(grupo_c)
+print(resultado)  # {4}
+
+# Rendimiento de los metodos de conjuntos
+# Ejemplo de rendimiento con conjuntos grandes
+import time
+
+# Crear dos conjuntos grandes
+conjunto_a = set(range(10000))
+conjunto_b = set(range(5000, 15000))
+
+# Medir tiempo para operación de intersección
+inicio = time.time()
+interseccion = conjunto_a.intersection(conjunto_b)
+fin = time.time()
+
+print(f"Elementos en la intersección: {len(interseccion)}")
+print(f"Tiempo para calcular intersección: {(fin - inicio)*1000:.2f} ms")
+
+# Operadores matematicos
 '''
